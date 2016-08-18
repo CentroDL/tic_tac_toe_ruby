@@ -15,4 +15,12 @@ describe Board do
     expect( five_tile_board.values.first.length ).to eq( 5 )
   end
 
+  context 'when created' do
+
+    xit "ensures an odd width" do
+
+    end
+
+  end
+
 end
