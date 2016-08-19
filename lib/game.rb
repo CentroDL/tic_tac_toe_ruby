@@ -1,7 +1,7 @@
 class Game
 
   include Renderable
-  attr_accessor :board, :player
+  attr_accessor :board, :player, :players_turn, :computer
 
   def initialize( board: Board.new( width: 3) )
     @player = nil
@@ -112,13 +112,17 @@ class Game
   def play_game
     until board.winner
       board.render
-      get_player_input
+      if players_turn
+        get_player_input
+      else
+        get_computer_input
+      end
     end
   end
 
   def get_player_input
-    puts "input!"
-    input = gets.chomp
+    current_position = board.position
+
   end
 
 
