@@ -6,7 +6,7 @@ require_relative  "lib/board.rb"
 # tictactoe.run
 
 board3 = Board.new
-board5 = Board.new width: 17
+board5 = Board.new width: 5
 
 
 # board3.render
