@@ -1,29 +1,30 @@
 class Game
 
+  include Renderable
   attr_accessor :board, :player
 
   def initialize( board: Board.new( width: 3) )
     @player = nil
     @computer = nil
     @players_turn = false
-    @winner_found = false
     @board = board
   end
 
   def run
-    start
-    winner_detected? ? stop : play
+    start_game
+    play_game
+    end_game
   end
 
   private
 
-  def start
+  def start_game
     clear_screen
     puts welcome_prompt
     set_player_choice
   end
 
-  def stop
+  def end_game
     clear_screen
     puts endgame_prompt
     play_again? ? reset_game : exit
@@ -49,7 +50,7 @@ class Game
 
   def reset_game
     @player = nil
-    start
+    start_game
   end
 
   def endgame_prompt
@@ -62,10 +63,6 @@ class Game
       1) Yes  2) No
 
     PROMPT
-  end
-
-  def clear_screen
-    system "clear" or system "cls"
   end
 
   def set_player_choice
@@ -107,11 +104,21 @@ class Game
   end
 
   def winner_detected?
-    true
+    false
+    # board.row_detected
   end
 
 
-  def play
+  def play_game
+    until board.winner
+      board.render
+      get_player_input
+    end
+  end
+
+  def get_player_input
+    puts "input!"
+    input = gets.chomp
   end
 
 
