@@ -1,0 +1,5 @@
+class StateManager
+
+
+
+end
