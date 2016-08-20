@@ -28,7 +28,7 @@ class Board
     end
 
     puts position
-    puts message if !message.nil?
+    puts message unless message.nil?
 
   end
 
@@ -39,7 +39,12 @@ class Board
 
 
   def place(input)
-    values[position[0]][position[1]] = input
+    current_value = values[position[0]][position[1]]
+    if current_value == " "
+      values[position[0]][position[1]] = input
+    else
+      return false
+    end
   end
 
   # grid traversal methods

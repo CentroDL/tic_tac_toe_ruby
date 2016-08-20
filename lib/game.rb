@@ -139,7 +139,11 @@ class Game
           board.move_left
           break
         when "\r"
-          board.place(player)
+          if board.place(player)
+            players_turn = false
+          else
+            puts "JJJJJJJJJJJJ"
+          end
           break
         when "\004"
           puts "DELETE"
@@ -149,6 +153,7 @@ class Game
 
     end
   end
+
 
 
 
