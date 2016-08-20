@@ -5,7 +5,7 @@ class Game
 
   attr_accessor :board, :player, :computer, :keyboard, :players_turn
 
-  def initialize( board: Board.new( width: 15) )
+  def initialize( board: Board.new( width: 3) )
     @player = nil
     @computer = nil
     @players_turn = false
@@ -23,17 +23,45 @@ class Game
 
   def start_game
     clear_screen
+
     puts welcome_prompt
     set_player_choice
+
+    puts board_resize_prompt
+    resize_board if player_says_yes?
+  end
+
+  def board_resize_prompt
+    <<~PROMPT
+      Would you like to resize the board?
+      Default size is 3
+
+      1) Yes  2) No
+
+    PROMPT
+  end
+
+  def resize_board
+    puts "How large would you like the board to be?"
+    puts "Input a number (must be odd):"
+    size = gets.chomp.to_i
+
+    until size > 0 && size.odd?
+      puts "Please input a positive odd number"
+      size = gets.chomp.to_i
+    end
+
+    self.board = Board.new width: size
+
   end
 
   def end_game
     clear_screen
     puts endgame_prompt
-    play_again? ? reset_game : exit
+    player_says_yes? ? reset_game : exit
   end
 
-  def play_again?
+  def player_says_yes?
     valid_choices = ["1", "y", "Y", "yes", "YES", "2", "n", "N", "no", "NO"]
     player_choice = gets.chomp
 
@@ -64,7 +92,7 @@ class Game
 
       Game Over!
 
-      #{ board.winner || board.draw }
+      #{ "Winner: #{ board.winner ? board.winner : "DRAW" }"}
 
       Play Again?
 
@@ -94,7 +122,7 @@ class Game
         @player = nil
     end
 
-    @players_turn = @player == "X"
+    self.players_turn = player == "X"
   end
 
   def welcome_prompt
@@ -111,16 +139,14 @@ class Game
 
   def play_game
 
-    until board.winner
+    until board.winner || board.draw
       board.render
       if players_turn
         get_player_input
-        board.search_for_rows
       else
         get_computer_input
-        board.search_for_rows
       end
-
+      board.detect_win
     end
 
   end
@@ -144,7 +170,7 @@ class Game
         break
       when "\r"
         if board.place(player)
-          players_turn = false
+          self.players_turn = false
         end
         break
       when "\u0003"

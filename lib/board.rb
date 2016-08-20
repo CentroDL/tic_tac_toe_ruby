@@ -1,16 +1,18 @@
 class Board
 
   include Renderable
-  attr_accessor :values, :winner, :width, :position
+  attr_accessor :values, :winner, :width, :position, :draw
 
   def initialize( width: 3)
-    @width = width
-    @values = Array.new(width)
+    @winner   = nil
+    @draw     = nil
+    @position = [0,0]
+    @values   = Array.new(width)
+    @width    = width
+
     width.times do |n|
       values[n] = Array.new(width).fill(" ")
     end
-    @winner = nil
-    @position = [0,0]
   end
 
   def render( message: nil)
@@ -29,14 +31,12 @@ class Board
 
     puts position
     puts message unless message.nil?
-
   end
 
   def draw_line
     # noticed the offset was the lowest even number prior so that's that i subtract the multiplier by
     puts "-" * ( (width * 5) - (width-1)   )
   end
-
 
   def place(input)
     current_value = values[position[0]][position[1]]
@@ -69,10 +69,20 @@ class Board
     position[1] = (current_x < 0) ? (width-1) : current_x
   end
 
-  def search_for_rows
+  def detect_win
     scan_rows values
     scan_rows values.transpose
     scan_rows diagonals
+
+    if winner.nil? && values_full?
+      draw == true
+    end
+  end
+
+  def values_full?
+    values.none? do |row|
+      row.any? { |value| value == " " }
+    end
   end
 
   def scan_rows(rows)
