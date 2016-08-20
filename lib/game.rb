@@ -2,7 +2,8 @@ require 'pry'
 class Game
 
   include Renderable
-  attr_accessor :board, :player, :players_turn, :computer, :keyboard
+
+  attr_accessor :board, :player, :computer, :keyboard, :players_turn
 
   def initialize( board: Board.new( width: 3) )
     @player = nil
@@ -90,8 +91,6 @@ class Game
     end
 
     @players_turn = @player == "X"
-    puts "Player has chosen #{ @player }"
-    puts "Comupter will be #{ @computer }"
   end
 
   def welcome_prompt
@@ -105,12 +104,6 @@ class Game
       2) O
     PROMPT
   end
-
-  def winner_detected?
-    false
-    # board.row_detected
-  end
-
 
   def play_game
 
@@ -150,15 +143,16 @@ class Game
         break
       when "\u0003"
         exit
+      else
       end
     end
 
   end
 
   def get_computer_input
-    open_coordinates = board.values.each_with_index do |column, row|
-    end
-
+    board.position = [0,0]
+    board.place(computer)
+    players_turn = true
   end
 
 end

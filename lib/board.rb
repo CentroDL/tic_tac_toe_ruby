@@ -1,8 +1,7 @@
 class Board
 
   include Renderable
-  attr_reader :values, :winner, :width, :position
-  attr_writer :winner
+  attr_accessor :values, :winner, :width, :position
 
   def initialize( width: 3)
     @width = width
@@ -68,6 +67,40 @@ class Board
   def move_left
     current_x = position[1] - 1
     position[1] = (current_x < 0) ? (width-1) : current_x
+  end
+
+  def search_for_rows
+    scan_rows values
+    scan_rows columns
+    scan_rows diagonals
+  end
+
+  def scan_rows(rows)
+    rows.each do |row|
+      @winner = row.first if row.uniq.length == 1
+    end
+  end
+
+  def columns
+    columns = []
+
+    (0..width-1).each do |index|
+      columns << values.collect { |row| row[index] }
+    end
+
+    columns
+  end
+
+  def diagonals
+    diagonals = []
+
+    top_left_bottom_right = values.collect.with_index { |row, id| row[id] }
+    diagonals << top_left_bottom_right
+
+    # gross, but avoiding n-squared action
+
+    diagonals << bottom_left_top_right
+
   end
 
 end
