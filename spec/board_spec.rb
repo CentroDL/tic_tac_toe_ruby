@@ -107,4 +107,76 @@ describe Board do
     end
   end
 
+  describe "#values_full?" do
+
+    it "should be true when board is full" do
+      full_board = Board.new
+      full_board.values.each { |row| row.fill("V") }
+      expect( full_board.values_full? ).to eq(true)
+    end
+
+    it "should be false when board isn't full" do
+      empty_board = Board.new
+      expect( empty_board.values_full? ).to eq(false)
+
+      skim_board = Board.new
+      skim_board.position = [1,2]
+      skim_board.place "P"
+      expect( skim_board.values_full? ).to eq(false)
+    end
+
+  end
+
+  describe "#detect_win" do
+    it "detects a draw on a deadlocked board" do
+      deadlocked_board = Board.new
+      deadlocked_board.values[0] = [1,2,3]
+      deadlocked_board.values[1] = [4,5,6]
+      deadlocked_board.values[2] = [7,8,9]
+      deadlocked_board.detect_win
+
+      expect(deadlocked_board.winner).to eq(nil)
+      expect(deadlocked_board.draw).to eq(true)
+    end
+
+    it "detects horizontal rows" do
+      horizontally_won = Board.new
+      horizontally_won.values[1] = ["X", "X", "X"]
+      horizontally_won.detect_win
+
+      expect(horizontally_won.winner).to eq("X")
+    end
+
+    it "detects vertical rows" do
+      vertically_won = Board.new
+      row = [" ", "O", " "]
+      vertically_won.values[0] = row
+      vertically_won.values[1] = row
+      vertically_won.values[2] = row
+      vertically_won.detect_win
+
+      expect(vertically_won.winner).to eq("O")
+    end
+
+    it "detects diagonal wins" do
+      diagonally_won = Board.new
+      diagonally_won.values[0] = ["X", "O", " "]
+      diagonally_won.values[1] = ["O", "X", "O"]
+      diagonally_won.values[2] = ["O", " ", "X"]
+      diagonally_won.detect_win
+
+      expect(diagonally_won.winner).to eq("X")
+
+      diagonally_won = Board.new
+      diagonally_won.values[0] = ["X", "O", "C"]
+      diagonally_won.values[1] = ["O", "C", "O"]
+      diagonally_won.values[2] = ["C", " ", "X"]
+      diagonally_won.detect_win
+
+      expect(diagonally_won.winner).to eq("C")
+    end
+
+  end
+
+
 end

@@ -74,43 +74,16 @@ class Board
     scan_rows values.transpose
     scan_rows diagonals
 
-    if winner.nil? && values_full?
-      draw == true
+    if (values_full?) && (winner.nil?)
+      self.draw = true
     end
+
   end
 
   def values_full?
     values.none? do |row|
       row.any? { |value| value == " " }
     end
-  end
-
-  def scan_rows(rows)
-    rows.each do |row|
-      @winner = row.first if row.uniq.length == 1 && row.first != " "
-    end
-  end
-
-  # def columns
-  #   columns = []
-
-  #   (0..width-1).each do |index|
-  #     columns << values.collect { |row| row[index] }
-  #   end
-
-  #   columns
-  # end
-
-  def diagonals
-    diagonals = []
-
-    top_left_bottom_right = values.collect.with_index { |row, id| row[id] }
-    diagonals << top_left_bottom_right
-
-    bottom_left_top_right = values.reverse.collect.with_index { |row, id| row[id] }
-    diagonals << bottom_left_top_right
-
-    diagonals
   end
 
   def empty_coords
@@ -124,6 +97,36 @@ class Board
 
     coords
   end
+
+  private
+
+  def diagonals
+    diagonals = []
+
+    top_left_bottom_right = values.collect.with_index { |row, id| row[id] }
+    diagonals << top_left_bottom_right
+
+    bottom_left_top_right = values.reverse.collect.with_index { |row, id| row[id] }
+    diagonals << bottom_left_top_right
+
+    diagonals
+  end
+
+  def scan_rows(rows)
+    rows.each do |row|
+      self.winner = row.first if row.uniq.length == 1 && row.first != " "
+    end
+  end
+
+  # def columns
+  #   columns = []
+
+  #   (0..width-1).each do |index|
+  #     columns << values.collect { |row| row[index] }
+  #   end
+
+  #   columns
+  # end
 
 end
 

@@ -56,7 +56,7 @@ class Game
   end
 
   def end_game
-    clear_screen
+    # clear_screen
     puts endgame_prompt
     player_says_yes? ? reset_game : exit
   end
@@ -83,7 +83,7 @@ class Game
   def reset_game
     player = nil
     players_turn = false
-    self.board = Board.new width: board.width
+    self.board = Board.new
     run
   end
 
@@ -183,7 +183,7 @@ class Game
 
   def get_computer_input
     board.position = board.empty_coords.sample
-    board.place(computer)
+    board.place(computer) unless board.draw
     self.players_turn = true
   end
 
