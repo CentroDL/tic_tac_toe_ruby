@@ -182,7 +182,7 @@ class Game
   end
 
   def get_computer_input
-    board.position = board.empty_coords.sample.sample
+    board.position = board.empty_coords.sample
     board.place(computer)
     self.players_turn = true
   end
