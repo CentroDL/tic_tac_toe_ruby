@@ -88,11 +88,19 @@ class Game
   end
 
   def endgame_prompt
+    if board.draw
+      winner = "DRAW"
+    elsif board.winner == player
+      winner = "PLAYER"
+    else
+      winner = "COMPUTER"
+    end
+
     <<~PROMPT
 
       Game Over!
 
-      #{ "Winner: #{ board.winner ? board.winner : "DRAW" }"}
+      Winner: #{winner}
 
       Play Again?
 
@@ -138,10 +146,19 @@ class Game
     PROMPT
   end
 
+  def in_game_prompt
+    <<~PROMPT
+
+      Player: #{player}
+      Computer: #{computer}
+
+    PROMPT
+  end
+
   def play_game
 
     until board.winner || board.draw
-      board.render
+      board.render message: in_game_prompt
       if players_turn
         get_player_input
       else

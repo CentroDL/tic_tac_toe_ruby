@@ -29,7 +29,6 @@ class Board
       draw_line
     end
 
-    puts position
     puts message unless message.nil?
   end
 
