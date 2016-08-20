@@ -54,6 +54,7 @@ PLATFORMS
 
 DEPENDENCIES
   guard
+  pry
   rspec
 
 RUBY VERSION
