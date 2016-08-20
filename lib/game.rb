@@ -1,3 +1,4 @@
+require 'pry'
 class Game
 
   include Renderable
@@ -51,7 +52,8 @@ class Game
 
   def reset_game
     @player = nil
-    start_game
+    @players_turn = false
+    run
   end
 
   def endgame_prompt
@@ -111,6 +113,7 @@ class Game
 
 
   def play_game
+
     until board.winner
       board.render
       if players_turn
@@ -118,7 +121,9 @@ class Game
       else
         get_computer_input
       end
+
     end
+
   end
 
   def get_player_input
@@ -126,36 +131,35 @@ class Game
       input = keyboard.listen
 
       case input
-        when "\e[A"
-          board.move_up
-          break
-        when "\e[B"
-          board.move_down
-          break
-        when "\e[C"
-          board.move_right
-          break
-        when "\e[D"
-          board.move_left
-          break
-        when "\r"
-          if board.place(player)
-            players_turn = false
-          else
-            puts "JJJJJJJJJJJJ"
-          end
-          break
-        when "\004"
-          puts "DELETE"
-        when "\u0003"
-          exit
+      when "\e[A"
+        board.move_up
+        break
+      when "\e[B"
+        board.move_down
+        break
+      when "\e[C"
+        board.move_right
+        break
+      when "\e[D"
+        board.move_left
+        break
+      when "\r"
+        if board.place(player)
+          players_turn = false
+        end
+        break
+      when "\u0003"
+        exit
       end
-
     end
+
   end
 
+  def get_computer_input
+    open_coordinates = board.values.each_with_index do |column, row|
+    end
 
-
+  end
 
 end
 

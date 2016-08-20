@@ -2,6 +2,7 @@ class Board
 
   include Renderable
   attr_reader :values, :winner, :width, :position
+  attr_writer :winner
 
   def initialize( width: 3)
     @width = width
@@ -43,7 +44,7 @@ class Board
     if current_value == " "
       values[position[0]][position[1]] = input
     else
-      return false
+      false
     end
   end
 
