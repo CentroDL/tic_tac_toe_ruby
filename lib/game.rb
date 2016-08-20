@@ -140,6 +140,7 @@ class Game
           break
         when "\r"
           board.place(player)
+          break
         when "\004"
           puts "DELETE"
         when "\u0003"
