@@ -71,7 +71,7 @@ class Board
 
   def search_for_rows
     scan_rows values
-    scan_rows columns
+    scan_rows values.transpose
     scan_rows diagonals
   end
 
@@ -81,15 +81,15 @@ class Board
     end
   end
 
-  def columns
-    columns = []
+  # def columns
+  #   columns = []
 
-    (0..width-1).each do |index|
-      columns << values.collect { |row| row[index] }
-    end
+  #   (0..width-1).each do |index|
+  #     columns << values.collect { |row| row[index] }
+  #   end
 
-    columns
-  end
+  #   columns
+  # end
 
   def diagonals
     diagonals = []
@@ -97,10 +97,10 @@ class Board
     top_left_bottom_right = values.collect.with_index { |row, id| row[id] }
     diagonals << top_left_bottom_right
 
-    # gross, but avoiding n-squared action
-
+    bottom_left_top_right = values.reverse.collect.with_index { |row, id| row[id] }
     diagonals << bottom_left_top_right
 
+    diagonals
   end
 
 end
