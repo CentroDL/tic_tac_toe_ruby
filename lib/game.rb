@@ -43,11 +43,11 @@ class Game
 
   def resize_board
     puts "How large would you like the board to be?"
-    puts "Input a number (must be odd):"
+    puts "Input an odd number greater than 3:"
     size = gets.chomp.to_i
 
-    until size > 0 && size.odd?
-      puts "Please input a positive odd number"
+    until size > 3 && size.odd?
+      puts "Please input a positive odd number larger than 3:"
       size = gets.chomp.to_i
     end
 
@@ -134,6 +134,7 @@ class Game
 
       1) X
       2) O
+
     PROMPT
   end
 
@@ -148,7 +149,7 @@ class Game
       end
       board.detect_win
     end
-
+    board.render
   end
 
   def get_player_input
@@ -183,7 +184,7 @@ class Game
 
   def get_computer_input
     board.position = board.empty_coords.sample
-    board.place(computer) unless board.draw
+    board.place(computer)
     self.players_turn = true
   end
 

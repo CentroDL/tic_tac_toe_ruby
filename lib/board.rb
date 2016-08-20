@@ -74,7 +74,7 @@ class Board
     scan_rows values.transpose
     scan_rows diagonals
 
-    if (values_full?) && (winner.nil?)
+    if values_full? && winner.nil?
       self.draw = true
     end
 
