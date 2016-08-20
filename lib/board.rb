@@ -37,21 +37,32 @@ class Board
     puts "-" * ( (width * 5) - (width-1)   )
   end
 
+
+  def place(input)
+    values[position[0]][position[1]] = input
+  end
+
   # grid traversal methods
   # we check the movements before mutating position so it's not jittery when rendered
-  # def move_up
-  #   current_y = position[1] + 1
-  #   position[1] = (current_y > (width - 1) ? 0 : current_y
-  # end
+  def move_up
+    current_y = position[0] - 1
+    position[0] = (current_y < 0 ) ? (width-1) : current_y
+  end
 
-  # def move_down
-  # end
+  def move_down
+    current_y = position[0] + 1
+    position[0] = (current_y > (width - 1)) ? 0 : current_y
+  end
 
-  # def move_right
-  # end
+  def move_right
+    current_x = position[1] + 1
+    position[1] = (current_x > (width - 1)) ? 0 : current_x
+  end
 
-  # def move_left
-  # end
+  def move_left
+    current_x = position[1] - 1
+    position[1] = (current_x < 0) ? (width-1) : current_x
+  end
 
 end
 

@@ -1,13 +1,14 @@
 class Game
 
   include Renderable
-  attr_accessor :board, :player, :players_turn, :computer
+  attr_accessor :board, :player, :players_turn, :computer, :keyboard
 
   def initialize( board: Board.new( width: 3) )
     @player = nil
     @computer = nil
     @players_turn = false
     @board = board
+    @keyboard = Keyboard.new
   end
 
   def run
@@ -121,8 +122,31 @@ class Game
   end
 
   def get_player_input
-    current_position = board.position
+    while players_turn do
+      input = keyboard.listen
 
+      case input
+        when "\e[A"
+          board.move_up
+          break
+        when "\e[B"
+          board.move_down
+          break
+        when "\e[C"
+          board.move_right
+          break
+        when "\e[D"
+          board.move_left
+          break
+        when "\r"
+          board.place(player)
+        when "\004"
+          puts "DELETE"
+        when "\u0003"
+          exit
+      end
+
+    end
   end
 
 
