@@ -1,4 +1,3 @@
-require 'pry'
 class Game
 
   include Renderable
@@ -33,6 +32,7 @@ class Game
 
   def board_resize_prompt
     <<~PROMPT
+
       Would you like to resize the board?
       Default size is 3
 
@@ -138,7 +138,7 @@ class Game
 
       Hello, Welcome to Tic Tac Toe!
 
-      What side would you like?
+      What side would you like? (X Goes First)
 
       1) X
       2) O
@@ -151,6 +151,10 @@ class Game
 
       Player: #{player}
       Computer: #{computer}
+
+      ༼ つ ◕◡◕ ༽つ Move with arrow keys and press <Enter> to place your piece
+
+      < ctrl + c > to quit
 
     PROMPT
   end
@@ -206,6 +210,3 @@ class Game
   end
 
 end
-
-
-
