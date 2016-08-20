@@ -113,5 +113,17 @@ class Board
     diagonals
   end
 
+  def empty_coords
+    coords = []
+
+    values.each_with_index do |row, row_id|
+      row.each_with_index do |value, column_id|
+        coords << [row_id, column_id] if value == " "
+      end
+    end
+
+    coords
+  end
+
 end
 

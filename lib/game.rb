@@ -83,7 +83,7 @@ class Game
   def reset_game
     player = nil
     players_turn = false
-    board.winner = nil
+    self.board = Board.new width: board.width
     run
   end
 
@@ -182,9 +182,9 @@ class Game
   end
 
   def get_computer_input
-    board.position = [0,0]
+    board.position = board.empty_coords.sample.sample
     board.place(computer)
-    players_turn = true
+    self.players_turn = true
   end
 
 end
