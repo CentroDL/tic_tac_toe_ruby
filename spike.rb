@@ -1,10 +1,10 @@
 # modules
-require_relative  "lib/renderable.rb"
+require_relative  "lib/renderable"
 
 # classes
-require_relative  "lib/keyboard.rb"
-require_relative  "lib/game.rb"
-require_relative  "lib/board.rb"
+require_relative  "lib/keyboard"
+require_relative  "lib/game"
+require_relative  "lib/board"
 
 tictactoe = Game.new
 tictactoe.run
