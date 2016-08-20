@@ -5,7 +5,7 @@ class Game
 
   attr_accessor :board, :player, :computer, :keyboard, :players_turn
 
-  def initialize( board: Board.new( width: 3) )
+  def initialize( board: Board.new( width: 15) )
     @player = nil
     @computer = nil
     @players_turn = false
@@ -51,9 +51,11 @@ class Game
     end
   end
 
+  # TODO: RESET THE BOARD
   def reset_game
-    @player = nil
-    @players_turn = false
+    player = nil
+    players_turn = false
+    board.winner = nil
     run
   end
 
@@ -61,6 +63,8 @@ class Game
     <<~PROMPT
 
       Game Over!
+
+      #{ board.winner || board.draw }
 
       Play Again?
 
@@ -111,8 +115,10 @@ class Game
       board.render
       if players_turn
         get_player_input
+        board.search_for_rows
       else
         get_computer_input
+        board.search_for_rows
       end
 
     end

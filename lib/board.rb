@@ -77,7 +77,7 @@ class Board
 
   def scan_rows(rows)
     rows.each do |row|
-      @winner = row.first if row.uniq.length == 1
+      @winner = row.first if row.uniq.length == 1 && row.first != " "
     end
   end
 
