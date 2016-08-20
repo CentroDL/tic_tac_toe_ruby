@@ -7,7 +7,7 @@ class Board
     @width = width
     @values = Array.new(width)
     width.times do |n|
-      values[n] = Array.new(3).fill(" ")
+      values[n] = Array.new(width).fill(" ")
     end
     @winner = nil
     @position = [0,0]

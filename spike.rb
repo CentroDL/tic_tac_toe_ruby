@@ -6,7 +6,7 @@ require_relative  "lib/keyboard.rb"
 require_relative  "lib/game.rb"
 require_relative  "lib/board.rb"
 
-tictactoe = Game.new
+tictactoe = Game.new(board: Board.new(width: 5))
 tictactoe.run
 
 # board3 = Board.new
