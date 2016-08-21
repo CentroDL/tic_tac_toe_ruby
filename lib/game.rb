@@ -9,7 +9,7 @@ class Game
     @computer     = nil
     @players_turn = false
     @board        = board
-    @Keyboard     = Keyboard.new
+    @keyboard     = Keyboard.new
   end
 
   def run
