@@ -5,11 +5,11 @@ class Game
   attr_accessor :board, :player, :computer, :keyboard, :players_turn
 
   def initialize( board: Board.new( width: 3) )
-    @player = nil
-    @computer = nil
+    @player       = nil
+    @computer     = nil
     @players_turn = false
-    @board = board
-    @keyboard = Keyboard.new
+    @board        = board
+    @Keyboard     = Keyboard.new
   end
 
   def run
